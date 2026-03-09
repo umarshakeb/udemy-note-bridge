@@ -1,0 +1,15 @@
+# Python environment
+.ext/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Security and local configs
+auth_config.json
+.DS_Store
+*.md
+
+# Editor settings
+.vscode/
+.idea/
