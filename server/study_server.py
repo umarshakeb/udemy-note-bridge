@@ -5,6 +5,12 @@ import os        # Added: Required for os.path.exists
 import secrets   # Added: Required for generating the hex token
 from flask import Flask, request, jsonify, abort # Added: abort
 from flask_cors import CORS
+from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+
+notes_dir = ROOT_DIR / "notes"
+notes_dir.mkdir(exist_ok=True)
 
 app = Flask(__name__)
 
@@ -64,8 +70,9 @@ def handle_summary():
         now = datetime.datetime.now()
         timestamp = now.strftime("%Y-%m-%d_%H-%M")
         filename = f"udemy_notes_{timestamp}.md"
+        file_path = os.path.join(notes_dir, filename)
         
-        with open(filename, "a", encoding="utf-8") as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(f"\n\n# Lesson @ {now.strftime('%H:%M:%S')}\n")
             f.write(summary)
             f.write("\n\n---\n")
